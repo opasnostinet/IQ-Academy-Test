@@ -2,8 +2,8 @@ import { Component } from "react";
 import { Toggler } from "../components/Toggler";
 import styles from "./Login.module.css";
 export class Login extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       login: '',
       password: '',
@@ -23,7 +23,19 @@ export class Login extends Component {
   }
 
   login(event) {
-    event.preventDefault()
+    event.preventDefault();
+    const body = new FormData();
+    body.append('phone_or_mail', 'test-cozl4p8u9@srv1.mail-tester.com');
+    body.append('password', '987654321');
+    fetch('https://api.iq.academy/api/account/login', {
+        method: "POST",
+        body: body,
+    }).then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      this.props.onUpdateTocken(data.token);
+    });
   }
 
   render() {
@@ -57,7 +69,7 @@ export class Login extends Component {
               <h2>Вход</h2>
               <input className={styles.field} onChange={this.changeLogin} type="text" placeholder="Введите email или телефон" value={this.state.login} />
               <div className={styles.password}>
-                <input className={styles.field} type="password" placeholder="Введите пароль" />
+                <input className={styles.field} onChange={this.changePassword} type="password" placeholder="Введите пароль" />
                 <img className={styles.eye} src="./img/eye.svg" alt="eye" />
                 <img className={styles.question} src="./img/question.svg" alt="question" />
               </div>
