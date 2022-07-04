@@ -1,6 +1,9 @@
 
 import { Component } from 'react';
+import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import { Login } from './pages/Login';
+import { Dashboard } from './pages/Dashboard';
+import { Home } from './pages/Home';
 
 class App extends Component {
   constructor() {
@@ -16,9 +19,13 @@ class App extends Component {
 
   render() {
     return (
-      <>
-        <Login onUpdateTocken={this.onUpdateTocken} />
-      </>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/login' element={<Login onUpdateTocken={this.onUpdateTocken} />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Routes>
+      </BrowserRouter>
     )
   }
 }
