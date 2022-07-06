@@ -6,24 +6,24 @@ import { Dashboard } from './pages/Dashboard';
 import { Home } from './pages/Home';
 
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       authToken: '',
 
     };
   }
 
-  onUpdateTocken = token => this.setState({ authToken: token });
+  onUpdateToken = token => this.setState({ authToken: token });
 
 
   render() {
     return (
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/login' element={<Login onUpdateTocken={this.onUpdateTocken} />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path='/' element={<Home />} exact />
+          <Route path='/login' element={<Login onUpdateToken={this.onUpdateToken} />} />
+          <Route path="/dashboard" element={<Dashboard onUpdateToken={this.onUpdateToken} token={this.state.authToken}  />} />
         </Routes>
       </BrowserRouter>
     )

@@ -1,89 +1,76 @@
-import { Component } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Toggler } from "../components/Toggler";
-
 import styles from "./Login.module.css";
-export class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      login: '',
-      password: '',
-    };
-    this.changeLogin = this.changeLogin.bind(this);
-    this.changePassword = this.changePassword.bind(this);
-    this.login = this.login.bind(this)
 
-  }
+export function Login(props) {
 
-  changeLogin(event) {
-    this.setState({ login: event.target.value })
-  }
+  const router = useNavigate();
+  const [state, setState] = useState({
+    login: '',
+    password: '',
+  });
 
-  changePassword(event) {
-    this.setState({ password: event.target.value })
-  }
-
-  login(event) {
+  const changeLogin = (event) => setState({ login: event.target.value });
+  const changePassword = (event) => setState({ password: event.target.value });
+  const login = (event) => {
     event.preventDefault();
     const body = new FormData();
     body.append('phone_or_mail', 'test-cozl4p8u9@srv1.mail-tester.com');
     body.append('password', '987654321');
     fetch('https://api.iq.academy/api/account/login', {
-        method: "POST",
-        body: body,
+      method: "POST",
+      body: body,
     }).then((response) => {
       return response.json();
     })
-    .then((data) => {
-      this.props.onUpdateTocken(data.token);
-    });
+      .then((data) => {
+        props.onUpdateToken(data.token);
+        router("/dashboard");
+      });
   }
 
-  render() {
-    return (
+  return (
 
-      <div className={styles.login}>
-        <div className={styles.half1}>
-          <header className={styles.header}>
-            <img className={styles.logo} src="./img/logo.svg" alt="logo" width="41px" />
-            <h1 className={styles.title}>iq.academy</h1>
-            <Toggler className={styles.languageTogglerMobile}></Toggler>
-          </header>
-          <div className={styles.slogan}>
-            <p>Learning</p>
-            <p>Management</p>
-            <p>System</p>
-
-            <picture className={styles.picture}>
-              <source srcSet="./img/Saly-desktop-1x.png, ./img/Saly-desktop-2x.png 2x" media="(min-width: 700px)" />
-              <img src="./img/Saly-mobile-1x.png" alt="Saly studies our courses" srcSet="./img/Saly-mobile-2x.png 2x" />
-            </picture>
-          </div>
+    <div className={styles.login}>
+      <div className={styles.half1}>
+        <header className={styles.header}>
+          <img className={styles.logo} src="./img/logo.svg" alt="logo" width="41px" />
+          <h1 className={styles.title}>iq.academy</h1>
+          <Toggler className={styles.languageTogglerMobile}></Toggler>
+        </header>
+        <div className={styles.slogan}>
+          <p>Learning</p>
+          <p>Management</p>
+          <p>System</p>
+          <picture className={styles.picture}>
+            <source srcSet="./img/Saly-desktop-1x.png, ./img/Saly-desktop-2x.png 2x" media="(min-width: 700px)" />
+            <img src="./img/Saly-mobile-1x.png" alt="Saly studies our courses" srcSet="./img/Saly-mobile-2x.png 2x" />
+          </picture>
         </div>
-
-        <div className={styles.half2}>
-          <img className={styles.crossDesktop} src="./img/cross.svg" alt="cross" />
-          <div className={styles.half2Wrapper}>
-            <Toggler className={styles.languageTogglerDesktop}></Toggler>
-            <h1 className={styles.titleDesktop}>Настоящий мастер – это вечный ученик</h1>
-            <form onSubmit={this.login} className={styles.form}>
-              <h2>Вход</h2>
-              <input className={styles.field} onChange={this.changeLogin} type="text" placeholder="Введите email или телефон" value={this.state.login} />
-              <div className={styles.password}>
-                <input className={styles.field} onChange={this.changePassword} type="password" placeholder="Введите пароль" />
-                <img className={styles.eye} src="./img/eye.svg" alt="eye" />
-                <img className={styles.question} src="./img/question.svg" alt="question" />
-              </div>
-              <input className={styles.submit} type="submit" value="войти" />
-            </form>
-            <footer className={styles.footer}>
-              <span>Нет аккаунта?&nbsp;</span>
-              <a href="/">Зарегистрироваться</a>
-            </footer>
-          </div>
-        </div>
-
       </div>
-    )
-  }
+
+      <div className={styles.half2}>
+        <img className={styles.crossDesktop} src="./img/cross.svg" alt="cross" />
+        <div className={styles.half2Wrapper}>
+          <Toggler className={styles.languageTogglerDesktop}></Toggler>
+          <h1 className={styles.titleDesktop}>Настоящий мастер – это вечный ученик</h1>
+          <form onSubmit={login} className={styles.form}>
+            <h2>Вход</h2>
+            <input className={styles.field} onChange={changeLogin} type="text" placeholder="Введите email или телефон" value={state.login} />
+            <div className={styles.password}>
+              <input className={styles.field} onChange={changePassword} type="password" placeholder="Введите пароль" />
+              <img className={styles.eye} src="./img/eye.svg" alt="eye" />
+              <img className={styles.question} src="./img/question.svg" alt="question" />
+            </div>
+            <input className={styles.submit} type="submit" value="войти" />
+          </form>
+          <footer className={styles.footer}>
+            <span>Нет аккаунта?&nbsp;</span>
+            <a href="/">Зарегистрироваться</a>
+          </footer>
+        </div>
+      </div>
+    </div>
+  );
 }
