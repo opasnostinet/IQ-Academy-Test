@@ -29,7 +29,7 @@ class App extends Component {
 
   render() {
     return (
-      <BrowserRouter>
+      <BrowserRouter basename='/IQ-Academy-Test'>
         <Routes>
           <Route path='/' element={<Home />} exact />
           <Route path='/login' element={this.loginGuard()} />
