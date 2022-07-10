@@ -4,20 +4,25 @@ import { Toggler } from "../components/Toggler";
 import styles from "./Login.module.css";
 
 export function Login(props) {
-
   const router = useNavigate();
   const [state, setState] = useState({
     login: '',
     password: '',
   });
 
-  const changeLogin = (event) => setState({ login: event.target.value });
-  const changePassword = (event) => setState({ password: event.target.value });
+  const changeLogin = (event) => setState({
+    ...state,
+    login: event.target.value,
+  });
+  const changePassword = (event) => setState({
+    ...state,
+    password: event.target.value
+  });
   const login = (event) => {
     event.preventDefault();
     const body = new FormData();
-    body.append('phone_or_mail', 'test-cozl4p8u9@srv1.mail-tester.com');
-    body.append('password', '987654321');
+    body.append('phone_or_mail', state.login);
+    body.append('password', state.password);
     fetch('https://api.iq.academy/api/account/login', {
       method: "POST",
       body: body,
@@ -25,13 +30,13 @@ export function Login(props) {
       return response.json();
     })
       .then((data) => {
+        if (data.token === undefined) return;
         props.onUpdateToken(data.token);
         router("/dashboard");
       });
   }
 
   return (
-
     <div className={styles.login}>
       <div className={styles.half1}>
         <header className={styles.header}>
@@ -59,7 +64,7 @@ export function Login(props) {
             <h2>Вход</h2>
             <input className={styles.field} onChange={changeLogin} type="text" placeholder="Введите email или телефон" value={state.login} />
             <div className={styles.password}>
-              <input className={styles.field} onChange={changePassword} type="password" placeholder="Введите пароль" />
+              <input className={styles.field} onChange={changePassword} type="password" placeholder="Введите пароль" value={state.password} />
               <img className={styles.eye} src="./img/eye.svg" alt="eye" />
               <img className={styles.question} src="./img/question.svg" alt="question" />
             </div>

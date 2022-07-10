@@ -1,26 +1,31 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function Dashboard(props) {
+  const [wasDataFetched, setWasDataFetched] = useState(false);
   const [profile, setProfile] = useState({});
 
-  const body = new FormData();
-  body.append('token', props.token)
+  useEffect(() => {
+    if (wasDataFetched) return;
 
-  fetch('https://api.iq.academy/api/account/profile', {
-    method: 'POST',
-    headers: {
-      'authorization': 'Bearer ' + props.token 
-    },
-    body: body,
-    
-  }).then((response) => {
-    return response.json();
-  })
-    .then((data) => {
-      setProfile(data);
-    });
+    const body = new FormData();
+    body.append('token', props.token)
 
+    fetch('https://api.iq.academy/api/account/profile', {
+      method: 'POST',
+      headers: {
+        'authorization': 'Bearer ' + props.token
+      },
+      body: body,
+
+    }).then((response) => {
+      return response.json();
+    })
+      .then((data) => {
+        setProfile(data);
+        setWasDataFetched(true);
+      });
+  }, []);
 
   const onClick = (event) => {
     props.onUpdateToken('');
