@@ -1,6 +1,6 @@
 
 import { Component } from 'react';
-import { Route, BrowserRouter, Routes, Navigate } from 'react-router-dom';
+import { Route, HashRouter, Routes, Navigate } from 'react-router-dom';
 import { Login } from './pages/Login';
 import { Dashboard } from './pages/Dashboard';
 import { Home } from './pages/Home';
@@ -29,13 +29,13 @@ class App extends Component {
 
   render() {
     return (
-      <BrowserRouter basename='/IQ-Academy-Test'>
+      <HashRouter basename='/IQ-Academy-Test'>
         <Routes>
           <Route path='./' element={<Home />} exact />
           <Route path='./login' element={this.loginGuard()} />
           <Route path='./dashboard' element={this.dashboardGuard()} />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     )
   }
 }
