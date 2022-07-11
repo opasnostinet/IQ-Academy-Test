@@ -31,9 +31,9 @@ class App extends Component {
     return (
       <HashRouter basename='/IQ-Academy-Test'>
         <Routes>
-          <Route path='./' element={<Home />} exact />
-          <Route path='./login' element={this.loginGuard()} />
-          <Route path='./dashboard' element={this.dashboardGuard()} />
+          <Route path='/' element={<Home />} exact />
+          <Route path='/login' element={this.loginGuard()} />
+          <Route path='/dashboard' element={this.dashboardGuard()} />
         </Routes>
       </HashRouter>
     )
