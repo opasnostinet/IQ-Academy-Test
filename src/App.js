@@ -29,7 +29,7 @@ class App extends Component {
 
   render() {
     return (
-      <HashRouter basename='/IQ-Academy-Test'>
+      <HashRouter>
         <Routes>
           <Route path='/' element={<Home />} exact />
           <Route path='/login' element={this.loginGuard()} />
