@@ -32,8 +32,8 @@ class App extends Component {
       <HashRouter>
         <Routes>
           <Route path='/' element={<Home />} exact />
-          <Route path='/login' element={this.loginGuard()} />
-          <Route path='/dashboard' element={this.dashboardGuard()} />
+          <Route path='login' element={this.loginGuard()} />
+          <Route path='dashboard' element={this.dashboardGuard()} />
         </Routes>
       </HashRouter>
     )
