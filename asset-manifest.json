@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/IQ-Academy-Test/static/css/main.fae50071.css",
-    "main.js": "/IQ-Academy-Test/static/js/main.52e8bd85.js",
+    "main.js": "/IQ-Academy-Test/static/js/main.d1e4bc5a.js",
     "static/js/787.6cf5c74a.chunk.js": "/IQ-Academy-Test/static/js/787.6cf5c74a.chunk.js",
     "static/media/background.svg": "/IQ-Academy-Test/static/media/background.353b8e7f36950d4f4174.svg",
     "index.html": "/IQ-Academy-Test/index.html",
     "main.fae50071.css.map": "/IQ-Academy-Test/static/css/main.fae50071.css.map",
-    "main.52e8bd85.js.map": "/IQ-Academy-Test/static/js/main.52e8bd85.js.map",
+    "main.d1e4bc5a.js.map": "/IQ-Academy-Test/static/js/main.d1e4bc5a.js.map",
     "787.6cf5c74a.chunk.js.map": "/IQ-Academy-Test/static/js/787.6cf5c74a.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.fae50071.css",
-    "static/js/main.52e8bd85.js"
+    "static/js/main.d1e4bc5a.js"
   ]
 }
